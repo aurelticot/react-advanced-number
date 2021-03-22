@@ -2,7 +2,11 @@
   "name": "react-advanced-number",
   "version": "0.1.0",
   "description": "React component displaying a number with advanced options such as highlighting the differences with the previous value, a privacy mode, etc.",
-  "keywords": ["react", "number", "price"],
+  "keywords": [
+    "react",
+    "number",
+    "price"
+  ],
   "author": "aurelticot <aurelticot.dev@gmail.com> (https://github.com/aurelticot)",
   "homepage": "https://github.com/aurelticot/react-advanced-number#readme",
   "repository": {
@@ -18,6 +22,8 @@
   "scripts": {
     "clean:node_modules": "rm -rf node_modules/",
     "clean:build": "rm -rf dist/",
+    "format:check": "npx prettier src/ --check",
+    "format": "npx prettier src/ --write",
     "clean": "npm run clean:node_modules && npm run clean:build",
     "prebuild": "npm run clean:build",
     "build": "npx tsc",
@@ -27,6 +33,7 @@
     "@types/node": "^14.14.35",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
+    "prettier": "^2.2.1",
     "typescript": "^4.2.3"
   },
   "dependencies": {
