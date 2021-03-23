@@ -1,5 +1,6 @@
 export const normalizeValue = (value: number, precision: number): number => {
-  return value * 10 ** (precision < 0 ? 0 : precision);
+  // Transform an decimal number to an integer
+  return Math.floor(value * 10 ** (precision < 0 ? 0 : precision));
 };
 
 export const getComparisonDiffIndex = (
