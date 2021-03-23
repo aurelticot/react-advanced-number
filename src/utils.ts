@@ -1,3 +1,7 @@
+export const normalizeValue = (value: number, precision: number): number => {
+  return value * 10 ** (precision < 0 ? 0 : precision);
+};
+
 export const getComparisonDiffIndex = (
   value1: string,
   value2: string

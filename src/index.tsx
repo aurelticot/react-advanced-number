@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  normalizeValue,
   convertValueToString,
   getComparisonDiffIndex,
   getDiffColor,
@@ -13,10 +14,10 @@ import {
 
 interface Props {
   value: number;
+  precision: number;
   previousValue?: number;
-  decimals: number;
-  maxNbDecimals: number;
   privacyMode?: boolean;
+  maxNbDecimals: number;
   displayMutedDecimals?: boolean;
   smallDecimals?: boolean;
   highlightDiff?: boolean;
@@ -28,10 +29,10 @@ interface Props {
 export const AdvancedNumber: React.FunctionComponent<Props> = (props) => {
   const {
     value,
+    precision,
     previousValue,
-    decimals,
-    maxNbDecimals,
     privacyMode = false,
+    maxNbDecimals,
     displayMutedDecimals = false,
     smallDecimals = false,
     highlightDiff = false,
@@ -40,16 +41,23 @@ export const AdvancedNumber: React.FunctionComponent<Props> = (props) => {
     mutedColor = DEFAULT_MUTED_COLOR,
   } = props;
 
-  const valueString = convertValueToString(value, decimals);
+  const roundedPrecision = Math.floor(precision);
+  const normalizedValue = normalizeValue(value, roundedPrecision);
 
-  const nbIntegers = valueString.length - decimals;
+  const valueString = convertValueToString(normalizedValue, roundedPrecision);
+
+  const nbIntegers = valueString.length - roundedPrecision;
   const nbDecimals =
-    decimals <= maxNbDecimals ? (decimals < 0 ? 0 : decimals) : maxNbDecimals;
+    roundedPrecision <= maxNbDecimals
+      ? roundedPrecision < 0
+        ? 0
+        : roundedPrecision
+      : maxNbDecimals;
 
   const valueInteger = valueString.slice(0, nbIntegers);
   const valueDecimals = valueString.slice(
     nbIntegers,
-    valueString.length - (decimals - maxNbDecimals)
+    valueString.length - (roundedPrecision - maxNbDecimals)
   );
 
   let neutralValueInteger = valueInteger;
@@ -58,7 +66,14 @@ export const AdvancedNumber: React.FunctionComponent<Props> = (props) => {
   let changedValueDecimals = "";
 
   if (highlightDiff && previousValue) {
-    const previousAmountString = convertValueToString(previousValue, decimals);
+    const normalizedPreviousValue = normalizeValue(
+      previousValue,
+      roundedPrecision
+    );
+    const previousAmountString = convertValueToString(
+      normalizedPreviousValue,
+      roundedPrecision
+    );
     const diffIndex = getComparisonDiffIndex(valueString, previousAmountString);
 
     neutralValueInteger = valueInteger.slice(0, diffIndex);
