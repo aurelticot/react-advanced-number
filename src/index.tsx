@@ -43,6 +43,7 @@ export const AdvancedNumber: React.FunctionComponent<Props> = (props) => {
 
   // Precision shall be an integer, so rounding in case it's not
   const roundedPrecision = Math.floor(precision);
+  const roundedMaxDecimals = Math.floor(maxNbDecimals);
 
   // To ease further manipulations, the value is normalized from a decimal
   // number to an integer: 123.456 with a precision of 4 becomes 1234560
@@ -52,16 +53,16 @@ export const AdvancedNumber: React.FunctionComponent<Props> = (props) => {
 
   const nbIntegers = valueString.length - roundedPrecision;
   const nbDecimals =
-    roundedPrecision <= maxNbDecimals
+    roundedPrecision <= roundedMaxDecimals
       ? roundedPrecision < 0
         ? 0
         : roundedPrecision
-      : maxNbDecimals;
+      : roundedMaxDecimals;
 
   const valueInteger = valueString.slice(0, nbIntegers);
   const valueDecimals = valueString.slice(
     nbIntegers,
-    valueString.length - (roundedPrecision - maxNbDecimals)
+    valueString.length - (roundedPrecision - roundedMaxDecimals)
   );
 
   let neutralValueInteger = valueInteger;
@@ -99,7 +100,7 @@ export const AdvancedNumber: React.FunctionComponent<Props> = (props) => {
     }
   }
 
-  const mutedDecimals = getMutedDecimals(nbDecimals, maxNbDecimals);
+  const mutedDecimals = getMutedDecimals(nbDecimals, roundedMaxDecimals);
 
   const diffColor = getDiffColor(
     value,
