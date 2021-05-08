@@ -1,3 +1,3 @@
-export const DEFAULT_POSITIVE_COLOR = "#4caf50";
-export const DEFAULT_NEGATIVE_COLOR = "#f44336";
-export const DEFAULT_MUTED_COLOR = "#adadad";
+export const DEFAULT_POSITIVE_COLOR = "#4CAF50";
+export const DEFAULT_NEGATIVE_COLOR = "#F44336";
+export const DEFAULT_SHADOW_COLOR = "#7C7C7CD9";

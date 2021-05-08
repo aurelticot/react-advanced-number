@@ -1,6 +1,59 @@
-export const normalizeValue = (value: number, precision: number): number => {
-  // Transform an decimal number to an integer
-  return Math.floor(value * 10 ** (precision < 0 ? 0 : precision));
+export const getPrefix = (valueParts: Intl.NumberFormatPart[]): string => {
+  const prefixIndex = valueParts.findIndex(
+    (part) =>
+      part.type === "integer" ||
+      part.type === "group" ||
+      part.type === "decimal" ||
+      part.type === "fraction"
+  );
+  const prefixArray = prefixIndex > 0 ? valueParts.slice(0, prefixIndex) : [];
+  return prefixArray
+    .map((part) => part.value)
+    .reduce((previousValue, value) => previousValue + value, "")
+    .trimStart();
+};
+
+export const getInteger = (valueParts: Intl.NumberFormatPart[]): string => {
+  return valueParts
+    .filter((part) => part.type === "integer" || part.type === "group")
+    .map((part) => part.value)
+    .reduce((previousValue, value) => previousValue + value, "");
+};
+
+export const getSeparator = (valueParts: Intl.NumberFormatPart[]): string => {
+  return valueParts
+    .filter((part) => part.type === "decimal")
+    .map((part) => part.value)
+    .reduce((previousValue, value) => previousValue + value, "");
+};
+
+export const getFraction = (valueParts: Intl.NumberFormatPart[]): string => {
+  return valueParts
+    .filter((part) => part.type === "fraction")
+    .map((part) => part.value)
+    .reduce((previousValue, value) => previousValue + value, "");
+};
+
+export const getSuffix = (valueParts: Intl.NumberFormatPart[]): string => {
+  const suffixReverseIndex = [...valueParts]
+    .reverse()
+    .findIndex(
+      (part) =>
+        part.type === "integer" ||
+        part.type === "group" ||
+        part.type === "decimal" ||
+        part.type === "fraction"
+    );
+  const suffixIndex =
+    suffixReverseIndex > 0
+      ? valueParts.length - suffixReverseIndex
+      : valueParts.length;
+  const suffixArray =
+    suffixIndex < valueParts.length ? valueParts.slice(suffixIndex) : [];
+  return suffixArray
+    .map((part) => part.value)
+    .reduce((previousValue, value) => previousValue + value, "")
+    .trimEnd();
 };
 
 export const getComparisonDiffIndex = (
@@ -17,39 +70,50 @@ export const getComparisonDiffIndex = (
   return index;
 };
 
-export const convertValueToString = (
-  value: number,
-  decimals: number
-): string => {
-  let valueString = String(value).split(".")[0];
-  if (valueString.length < decimals + 1) {
-    const nbMissingLeadingZeros = decimals + 1 - valueString.length;
-    const leadingZeros = String(10 ** nbMissingLeadingZeros).slice(1);
-    valueString = `${leadingZeros}${valueString}`;
-  }
-  return valueString;
-};
-
 export const getMutedDecimals = (
-  nbDecimals: number,
-  maxNbDecimals: number
+  nbDigits: number,
+  maxDigits: number
 ): string => {
-  return String(10 ** (maxNbDecimals - nbDecimals)).slice(1);
+  return maxDigits > nbDigits
+    ? String(10 ** (maxDigits - nbDigits)).slice(1)
+    : "";
 };
 
 export const getDiffColor = (
-  value: number,
-  highlightDiff: boolean,
   positiveColor: string,
   negativeColor: string,
+  value: number,
   previousValue?: number
 ): string => {
-  if (highlightDiff && previousValue) {
-    return value > previousValue
-      ? positiveColor
-      : value < previousValue
-      ? negativeColor
-      : "inherit";
+  if (!previousValue) {
+    return "inherit";
   }
-  return "inherit";
+  return value > previousValue
+    ? positiveColor
+    : value < previousValue
+    ? negativeColor
+    : "inherit";
 };
+
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any */
+
+// Dissociate the span props to forward from the component props
+export const extractSpanProps = (
+  props: any
+): React.HTMLAttributes<HTMLSpanElement> => {
+  const cleanedProps = { ...props };
+  delete cleanedProps.value;
+  delete cleanedProps.locales;
+  delete cleanedProps.options;
+  delete cleanedProps.smallDecimals;
+  delete cleanedProps.privacyMode;
+  delete cleanedProps.privacyShadowColor;
+  delete cleanedProps.previousValue;
+  delete cleanedProps.positiveColor;
+  delete cleanedProps.negativeColor;
+  delete cleanedProps.significantDecimalDigits;
+  delete cleanedProps.showMutedDecimals;
+  delete cleanedProps.maxDecimalDigits;
+  return cleanedProps as React.HTMLAttributes<HTMLSpanElement>;
+};
+/* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any */
