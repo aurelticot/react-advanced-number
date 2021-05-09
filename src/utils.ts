@@ -1,3 +1,9 @@
+/**
+ * Extract the prefix as a whole string from the number parts.
+ *
+ * @param valueParts the parts of the formatted number returmed from Intl.NumberFormat#formatToParts
+ * @returns the prefix as a single string or an empty string.
+ */
 export const getPrefix = (valueParts: Intl.NumberFormatPart[]): string => {
   const prefixIndex = valueParts.findIndex(
     (part) =>
@@ -13,6 +19,12 @@ export const getPrefix = (valueParts: Intl.NumberFormatPart[]): string => {
     .trimStart();
 };
 
+/**
+ * Extract the integer as a whole string from the number parts.
+ *
+ * @param valueParts the parts of the formatted number returmed from Intl.NumberFormat#formatToParts
+ * @returns the integer as a single string or an empty string.
+ */
 export const getInteger = (valueParts: Intl.NumberFormatPart[]): string => {
   return valueParts
     .filter((part) => part.type === "integer" || part.type === "group")
@@ -20,6 +32,12 @@ export const getInteger = (valueParts: Intl.NumberFormatPart[]): string => {
     .reduce((previousValue, value) => previousValue + value, "");
 };
 
+/**
+ * Get the decimal separator from the number parts.
+ *
+ * @param valueParts the parts of the formatted number returmed from Intl.NumberFormat#formatToParts
+ * @returns the separator as a string or an empty string.
+ */
 export const getSeparator = (valueParts: Intl.NumberFormatPart[]): string => {
   return valueParts
     .filter((part) => part.type === "decimal")
@@ -27,6 +45,12 @@ export const getSeparator = (valueParts: Intl.NumberFormatPart[]): string => {
     .reduce((previousValue, value) => previousValue + value, "");
 };
 
+/**
+ * Extract the fraction as a whole string from the number parts.
+ *
+ * @param valueParts the parts of the formatted number returmed from Intl.NumberFormat#formatToParts
+ * @returns the fraction as a single string or an empty string.
+ */
 export const getFraction = (valueParts: Intl.NumberFormatPart[]): string => {
   return valueParts
     .filter((part) => part.type === "fraction")
@@ -34,6 +58,12 @@ export const getFraction = (valueParts: Intl.NumberFormatPart[]): string => {
     .reduce((previousValue, value) => previousValue + value, "");
 };
 
+/**
+ * Extract the suffix as a whole string from the number parts.
+ *
+ * @param valueParts the parts of the formatted number returmed from Intl.NumberFormat#formatToParts
+ * @returns the suffix as a single string or an empty string.
+ */
 export const getSuffix = (valueParts: Intl.NumberFormatPart[]): string => {
   const suffixReverseIndex = [...valueParts]
     .reverse()
@@ -56,6 +86,13 @@ export const getSuffix = (valueParts: Intl.NumberFormatPart[]): string => {
     .trimEnd();
 };
 
+/**
+ * Compare the two string values and return the index from where there's a difference.
+ *
+ * @param value1 the numeric value to check, formatted as a string.
+ * @param value2 the numeric value to check against, formatted as a string.
+ * @returns the index of the difference. value1 is used as a reference.
+ */
 export const getComparisonDiffIndex = (
   value1: string,
   value2: string
@@ -70,15 +107,28 @@ export const getComparisonDiffIndex = (
   return index;
 };
 
-export const getMutedDecimals = (
-  nbDigits: number,
-  maxDigits: number
-): string => {
+/**
+ * Get the sequence of '0' representing the muted digits. The number of muted digits is the difference between the two parameters nbDigits and maxDigits.
+ *
+ * @param nbDigits the number of digits of the number.
+ * @param maxDigits the maximum of digits to display.
+ * @returns a sequence of '0' or an empty string if maxDigits is less or equal to nbDigits.
+ */
+export const getMutedDigits = (nbDigits: number, maxDigits: number): string => {
   return maxDigits > nbDigits
     ? String(10 ** (maxDigits - nbDigits)).slice(1)
     : "";
 };
 
+/**
+ * Get the font color based on the diff between the value and the previous value.
+ *
+ * @param positiveColor the color applied for a positive difference
+ * @param negativeColor the color applied for a negative difference
+ * @param value the value to check.
+ * @param previousValue the previous value to check against.
+ * @returns the CSS color, either the positive, the negative colors or 'inherit' if there is no difference or previous value is not provided.
+ */
 export const getDiffColor = (
   positiveColor: string,
   negativeColor: string,
@@ -97,7 +147,12 @@ export const getDiffColor = (
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any */
 
-// Dissociate the span props to forward from the component props
+/**
+ * Extract the span props to forward from the whole component props.
+ *
+ * @param props the whole component props.
+ * @returns the HTML span element props.
+ */
 export const extractSpanProps = (
   props: any
 ): React.HTMLAttributes<HTMLSpanElement> => {
