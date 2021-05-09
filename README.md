@@ -4,6 +4,20 @@ React component formatting and displaying a number with advanced features such a
 
 The component has no dependency (except the obvious peer dep of react itself). The formatting relies on the [Intl.NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat). All the options of the API are provided as props of this component.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Formatting](#formatting)
+- [Features](#features)
+  - [Privacy Mode](#privacy-mode)
+  - [Diff Highlighting](#diff-highlighting)
+  - [Muted Decimals](#muted-decimals)
+  - [Small Decimals](#small-decimals)
+- [Styling](#styling)
+- [All Together](#all-together)
+- [License](#license)
+
 ## Installation
 
 react-advanced-number is available as an npm package (** ADD LINK TO NPM **)
