@@ -174,6 +174,10 @@ function App() {
 
 ![Usage](/doc/muted-decimals-comparison.png)
 
+_Note_: The feature requires the following to be enabled: `showMutedDecimals === true`, `maxDecimalDigits > significantDecimalDigits` and `options.notation === 'standard`.
+
+_Note_: `significantDecimalDigits` is actually optional, a default value is defined by the [Intl.NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat).
+
 ### Small Decimals
 
 Represent the decimals smaller than the interger part for the number.

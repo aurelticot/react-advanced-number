@@ -151,7 +151,9 @@ export interface AdvancedNumberProps extends IntlNumberFormatProps {
   significantDecimalDigits?: number;
 
   /**
-   * A boolean to enable (true) or disable (false) the representation of the muted decimals.
+   * A boolean to enable (true) or disable (false) the representation of the muted decimals. the prop maxDecimalDigits must also be set.
+   *
+   * Muted decimals is disable if the prop options.notation is different than "standard"
    *
    * Default is false.
    *
@@ -160,7 +162,7 @@ export interface AdvancedNumberProps extends IntlNumberFormatProps {
   showMutedDecimals?: boolean;
 
   /**
-   * The total number of decimal digits displayed when muted decimals is enabled (ignoredd if disabled).
+   * The total number of decimal digits displayed when muted decimals is enabled (ignored if disabled).
    *
    * The muted decimals correspond to the difference between maxDecimalDigits and significantDecimalDigits, assuming maxDecimalDigits is greater.
    *
@@ -299,7 +301,8 @@ export const AdvancedNumber = React.forwardRef<
     </span>
   );
   const renderMutedDecimals = () => {
-    if (!showMutedDecimals) {
+    const { minimumFractionDigits, notation } = formatter.resolvedOptions();
+    if (!showMutedDecimals || notation !== "standard") {
       return null;
     }
     const maxFractionDigits =
@@ -309,7 +312,6 @@ export const AdvancedNumber = React.forwardRef<
     if (!maxFractionDigits) {
       return null;
     }
-    const { minimumFractionDigits } = formatter.resolvedOptions();
     const mutedDecimals = getMutedDigits(
       minimumFractionDigits,
       maxFractionDigits
