@@ -102,7 +102,7 @@ export interface AdvancedNumberProps extends IntlNumberFormatProps {
   /**
    * Color to use for the shadow of the privacy mode.
    *
-   * Default is #7C7C7CD9
+   * Default is #7C7C7CD9.
    *
    * @type string
    */
@@ -273,23 +273,29 @@ export const AdvancedNumber = React.forwardRef<
 
   // Render functions, basically wrapping the different parts into the span elements.
 
-  const renderPrefix = () => <span>{prefix}</span>;
+  const renderPrefix = () => (prefix ? <span>{prefix}</span> : null);
   const renderInteger = () => (
     <span>
       {neutralInteger}
-      <span style={privacyMode ? {} : { color: diffColor }}>
-        {changedInteger}
-      </span>
+      {changedInteger && (
+        <span style={privacyMode ? {} : { color: diffColor }}>
+          {changedInteger}
+        </span>
+      )}
     </span>
   );
-  const renderSeparator = () => <span>{separator}</span>;
+  const renderSeparator = () => (separator ? <span>{separator}</span> : null);
   const renderFractions = () => (
     <span style={smallDecimals ? { fontSize: SMAL_DECIMALS_FONT_SIZE } : {}}>
       {neutralFraction}
-      <span style={privacyMode ? {} : { color: diffColor }}>
-        {changedFraction}
-        {renderMutedDecimals()}
-      </span>
+      {changedFraction ? (
+        <span style={privacyMode ? {} : { color: diffColor }}>
+          {changedFraction}
+          {renderMutedDecimals()}
+        </span>
+      ) : (
+        <>{renderMutedDecimals()}</>
+      )}
     </span>
   );
   const renderMutedDecimals = () => {
@@ -304,36 +310,37 @@ export const AdvancedNumber = React.forwardRef<
       return null;
     }
     const { minimumFractionDigits } = formatter.resolvedOptions();
-    return (
-      <span style={{ opacity: MUTED_DECIMALS_OPACITY }}>
-        {getMutedDigits(minimumFractionDigits, maxFractionDigits)}
-      </span>
+    const mutedDecimals = getMutedDigits(
+      minimumFractionDigits,
+      maxFractionDigits
     );
+    return mutedDecimals ? (
+      <span style={{ opacity: MUTED_DECIMALS_OPACITY }}>{mutedDecimals}</span>
+    ) : null;
   };
-  const renderSuffix = () => <span>{suffix}</span>;
+  const renderSuffix = () => (suffix ? <span>{suffix}</span> : null);
 
-  const getPrivacyStyle = () =>
+  const getRootStyle = (style?: React.CSSProperties) =>
     privacyMode
       ? {
+          ...style,
           color: "transparent",
           textShadow: `0 0 ${PRIVACY_SHADOW_BLUR_RADIUS} ${privacyShadowColor}`,
         }
-      : {};
+      : style;
 
   // Get clean props to forward to the root span element.
-  const spanElementProps: React.HTMLAttributes<HTMLSpanElement> = extractSpanProps(
+  const rootProps: React.HTMLAttributes<HTMLSpanElement> = extractSpanProps(
     props
   );
 
   return (
-    <span ref={ref} {...spanElementProps}>
-      <span style={getPrivacyStyle()}>
-        {renderPrefix()}
-        {renderInteger()}
-        {renderSeparator()}
-        {renderFractions()}
-        {renderSuffix()}
-      </span>
+    <span ref={ref} {...rootProps} style={getRootStyle(rootProps.style)}>
+      {renderPrefix()}
+      {renderInteger()}
+      {renderSeparator()}
+      {renderFractions()}
+      {renderSuffix()}
     </span>
   );
 });
