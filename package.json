@@ -1,11 +1,12 @@
 {
   "name": "react-advanced-number",
   "version": "0.1.0",
-  "description": "React component displaying a number with advanced options such as highlighting the differences with the previous value, a privacy mode, etc.",
+  "description": "React component formatting and displaying a number with advanced features such as highlighting the differences with the previous value, a privacy mode, etc.",
   "keywords": [
     "react",
     "number",
-    "price"
+    "price",
+    "privacy"
   ],
   "author": "aurelticot <aurelticot.dev@gmail.com> (https://github.com/aurelticot)",
   "homepage": "https://github.com/aurelticot/react-advanced-number#readme",
@@ -17,11 +18,15 @@
     "url": "https://github.com/aurelticot/react-advanced-number/issues"
   },
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "/lib",
+    "/doc"
+  ],
   "scripts": {
     "clean:node_modules": "rm -rf node_modules/",
-    "clean:build": "rm -rf dist/",
+    "clean:build": "rm -rf lib/",
     "format:check": "npx prettier src/ --check",
     "format": "npx prettier src/ --write",
     "lint:check": "eslint src/ --ext .js,.jsx,.ts,.tsx",
