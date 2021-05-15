@@ -20,7 +20,7 @@ The component has no dependency (except the obvious peer dep of react itself). T
 
 ## Installation
 
-react-advanced-number is available as an npm package (** ADD LINK TO NPM **)
+react-advanced-number is available as an [npm package](https://www.npmjs.com/package/react-advanced-number)
 
 ```
 npm install react-advanced-number
