@@ -1,0 +1,6 @@
+export const DEFAULT_POSITIVE_COLOR = "#4CAF50";
+export const DEFAULT_NEGATIVE_COLOR = "#F44336";
+export const DEFAULT_SHADOW_COLOR = "#7C7C7CD9";
+export const MUTED_DECIMALS_OPACITY = 0.7;
+export const PRIVACY_SHADOW_BLUR_RADIUS = "0.5em";
+export const SMAL_DECIMALS_FONT_SIZE = "0.8em";
