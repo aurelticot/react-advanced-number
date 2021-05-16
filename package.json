@@ -1,6 +1,6 @@
 {
   "name": "react-advanced-number",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "React component formatting and displaying a number with advanced features such as highlighting the differences with the previous value, a privacy mode, etc.",
   "keywords": [
     "react",
@@ -34,7 +34,7 @@
     "fix": "npm run format && npm run lint",
     "clean": "npm run clean:node_modules && npm run clean:build",
     "prebuild": "npm run clean:build",
-    "build": "npx tsc",
+    "build": "npm run check && npx tsc",
     "test": "jest --coverage"
   },
   "devDependencies": {
