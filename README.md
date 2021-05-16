@@ -1,5 +1,8 @@
 # react-advanced-number
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c8a75e531a8e4078ac81322f80b39379)](https://www.codacy.com/gh/aurelticot/react-advanced-number/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aurelticot/react-advanced-number&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/c8a75e531a8e4078ac81322f80b39379)](https://www.codacy.com/gh/aurelticot/react-advanced-number/dashboard?utm_source=github.com&utm_medium=referral&utm_content=aurelticot/react-advanced-number&utm_campaign=Badge_Coverage)
+
 React component formatting and displaying a number with advanced features such as highlighting the differences with the previous value, a privacy mode, etc.
 
 The component has no dependency (except the obvious peer dep of react itself). The formatting relies on the [Intl.NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat). All the options of the API are provided as props of this component.

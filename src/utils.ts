@@ -86,6 +86,10 @@ export const getSuffix = (valueParts: Intl.NumberFormatPart[]): string => {
     .trimEnd();
 };
 
+const getNZeros = (nbZeros: number): string => {
+  return nbZeros > 0 ? String(10 ** nbZeros).slice(1) : "";
+};
+
 /**
  * Compare the two string values and return the index from where there's a difference.
  *
@@ -97,14 +101,13 @@ export const getComparisonDiffIndex = (
   value1: string,
   value2: string
 ): number => {
-  // TODO handle when values are not same length
-  let index = value2.length + 1;
-  value2.split("").forEach((val, i) => {
-    if (val !== value1.charAt(i)) {
-      index = Math.min(index, i);
-    }
-  });
-  return index;
+  if (value1.length !== value2.length) {
+    return value2.length > value1.length ? value1.length : 0;
+  }
+  const index = value1
+    .split("")
+    .findIndex((val, i) => val !== value2.charAt(i));
+  return index < 0 ? value1.length : index;
 };
 
 /**
@@ -115,9 +118,7 @@ export const getComparisonDiffIndex = (
  * @returns a sequence of '0' or an empty string if maxDigits is less or equal to nbDigits.
  */
 export const getMutedDigits = (nbDigits: number, maxDigits: number): string => {
-  return maxDigits > nbDigits
-    ? String(10 ** (maxDigits - nbDigits)).slice(1)
-    : "";
+  return getNZeros(maxDigits - nbDigits);
 };
 
 /**
