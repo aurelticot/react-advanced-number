@@ -2,6 +2,7 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c8a75e531a8e4078ac81322f80b39379)](https://www.codacy.com/gh/aurelticot/react-advanced-number/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aurelticot/react-advanced-number&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/c8a75e531a8e4078ac81322f80b39379)](https://www.codacy.com/gh/aurelticot/react-advanced-number/dashboard?utm_source=github.com&utm_medium=referral&utm_content=aurelticot/react-advanced-number&utm_campaign=Badge_Coverage)
+[![CI](https://github.com/aurelticot/react-advanced-number/actions/workflows/ci.yml/badge.svg)](https://github.com/aurelticot/react-advanced-number/actions/workflows/ci.yml)
 
 React component formatting and displaying a number with advanced features such as highlighting the differences with the previous value, a privacy mode, etc.
 
