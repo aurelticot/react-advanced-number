@@ -92,7 +92,7 @@ describe("Utils", () => {
       expect(getComparisonDiffIndex("11234", "123")).toEqual(0);
     });
 
-    test("handle empty string params", () => {
+    test("handles empty string params", () => {
       expect(getComparisonDiffIndex("1234", "")).toEqual(0);
       expect(getComparisonDiffIndex("", "1234")).toEqual(0);
       expect(getComparisonDiffIndex("", "")).toEqual(0);
