@@ -6,7 +6,9 @@
     "react",
     "number",
     "price",
-    "privacy"
+    "privacy",
+    "currency",
+    "formatting"
   ],
   "author": "aurelticot <aurelticot.dev@gmail.com> (https://github.com/aurelticot)",
   "homepage": "https://github.com/aurelticot/react-advanced-number#readme",
