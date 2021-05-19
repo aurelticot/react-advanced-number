@@ -141,7 +141,7 @@ export interface AdvancedNumberProps extends IntlNumberFormatProps {
   negativeColor?: string;
 
   /**
-   *  The number of decimal to display.
+   * The number of decimal to display.
    * This property overrides both options.minimumFractionDigits and options.maximumFractionDigits.
    *
    * If undefined, the defaults from {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat|Intl.NumberFormat} are used.
@@ -174,7 +174,7 @@ export interface AdvancedNumberProps extends IntlNumberFormatProps {
 /**
  * This component allows formatting and rendering a number using the {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat|Intl.NumberFormat API}. The formatting options of the API are provided as props of this component.
  *
- * In additiona, specific features are also provided such as:
+ * In addition, specific features are also provided such as:
  * - Optionaly have smaller decimals
  * - Highlighting a difference between the value and a previous value.
  * - A privacy mode, blurrying the value when enabled.
@@ -249,9 +249,9 @@ export const AdvancedNumber = React.forwardRef<
     const integerDiffIndex = getComparisonDiffIndex(integer, previousInteger);
 
     neutralInteger = integer.slice(0, integerDiffIndex);
-    changedInteger = integer.slice(integerDiffIndex, integer.length + 1);
+    changedInteger = integer.slice(integerDiffIndex);
 
-    if (integerDiffIndex < integer.length + 1) {
+    if (integerDiffIndex < integer.length) {
       neutralFraction = "";
       changedFraction = fraction;
     } else {
@@ -262,7 +262,7 @@ export const AdvancedNumber = React.forwardRef<
       );
 
       neutralFraction = fraction.slice(0, fractionDiffIndex);
-      changedFraction = fraction.slice(fractionDiffIndex, fraction.length + 1);
+      changedFraction = fraction.slice(fractionDiffIndex);
     }
   }
 
@@ -287,19 +287,20 @@ export const AdvancedNumber = React.forwardRef<
     </span>
   );
   const renderSeparator = () => (separator ? <span>{separator}</span> : null);
-  const renderFractions = () => (
-    <span style={smallDecimals ? { fontSize: SMAL_DECIMALS_FONT_SIZE } : {}}>
-      {neutralFraction}
-      {changedFraction ? (
-        <span style={privacyMode ? {} : { color: diffColor }}>
-          {changedFraction}
-          {renderMutedDecimals()}
-        </span>
-      ) : (
-        <>{renderMutedDecimals()}</>
-      )}
-    </span>
-  );
+  const renderFractions = () =>
+    neutralFraction || changedFraction ? (
+      <span style={smallDecimals ? { fontSize: SMAL_DECIMALS_FONT_SIZE } : {}}>
+        {neutralFraction}
+        {changedFraction ? (
+          <span style={privacyMode ? {} : { color: diffColor }}>
+            {changedFraction}
+            {renderMutedDecimals()}
+          </span>
+        ) : (
+          <>{renderMutedDecimals()}</>
+        )}
+      </span>
+    ) : null;
   const renderMutedDecimals = () => {
     const { minimumFractionDigits, notation } = formatter.resolvedOptions();
     if (!showMutedDecimals || notation !== "standard") {
