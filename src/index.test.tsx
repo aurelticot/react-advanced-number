@@ -255,9 +255,117 @@ describe("AdvancedNumber", () => {
       `);
     });
 
-    test.todo("Positive difference on different lenght");
+    test("Positive difference on different length", () => {
+      const component = render(
+        <AdvancedNumber value={1234.56} previousValue={989.22} />
+      );
+      expect(component.asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <span>
+            <span>
+              <span
+                style="color: rgb(76, 175, 80);"
+              >
+                1,234
+              </span>
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              <span
+                style="color: rgb(76, 175, 80);"
+              >
+                56
+              </span>
+            </span>
+          </span>
+        </DocumentFragment>
+      `);
 
-    test.todo("Negative difference on different lenght");
+      const component2 = render(
+        <AdvancedNumber value={1089.22} previousValue={989.22} />
+      );
+      expect(component2.asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <span>
+            <span>
+              <span
+                style="color: rgb(76, 175, 80);"
+              >
+                1,089
+              </span>
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              <span
+                style="color: rgb(76, 175, 80);"
+              >
+                22
+              </span>
+            </span>
+          </span>
+        </DocumentFragment>
+      `);
+    });
+
+    test("Negative difference on different length", () => {
+      const component = render(
+        <AdvancedNumber value={989.22} previousValue={1234.56} />
+      );
+      expect(component.asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <span>
+            <span>
+              <span
+                style="color: rgb(244, 67, 54);"
+              >
+                989
+              </span>
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              <span
+                style="color: rgb(244, 67, 54);"
+              >
+                22
+              </span>
+            </span>
+          </span>
+        </DocumentFragment>
+      `);
+
+      const component2 = render(
+        <AdvancedNumber value={989.22} previousValue={1089.22} />
+      );
+      expect(component2.asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <span>
+            <span>
+              <span
+                style="color: rgb(244, 67, 54);"
+              >
+                989
+              </span>
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              <span
+                style="color: rgb(244, 67, 54);"
+              >
+                22
+              </span>
+            </span>
+          </span>
+        </DocumentFragment>
+      `);
+    });
 
     test("Negative difference on decimals", () => {
       const { asFragment } = render(

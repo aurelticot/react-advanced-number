@@ -43,6 +43,7 @@ describe("Utils", () => {
     test("returns the integer parts as a concatenated string", () => {
       expect(getInteger(numberPartsFull)).toBe("3.500");
     });
+
     test("returns an empty string if no fraction part", () => {
       expect(getInteger(numberPartsEmpty)).toBe("");
     });
@@ -52,6 +53,7 @@ describe("Utils", () => {
     test("returns the separator", () => {
       expect(getSeparator(numberPartsFull)).toBe(",");
     });
+
     test("returns an empty string if no separator", () => {
       expect(getSeparator(numberPartsEmpty)).toBe("");
     });
@@ -61,6 +63,7 @@ describe("Utils", () => {
     test("returns the fraction parts as a concatenated string", () => {
       expect(getFraction(numberPartsFull)).toBe("00");
     });
+
     test("returns an empty string if no fraction part", () => {
       expect(getFraction(numberPartsEmpty)).toBe("");
     });
@@ -70,6 +73,7 @@ describe("Utils", () => {
     test("returns the suffix as a concatenated string", () => {
       expect(getSuffix(numberPartsFull)).toBe(" €");
     });
+
     test("returns an empty string if no suffix part", () => {
       expect(getSuffix(numberPartsEmpty)).toBe("");
     });
@@ -88,7 +92,7 @@ describe("Utils", () => {
     });
 
     test("handles params of different length", () => {
-      expect(getComparisonDiffIndex("123", "11234")).toEqual(3);
+      expect(getComparisonDiffIndex("123", "11234")).toEqual(0);
       expect(getComparisonDiffIndex("11234", "123")).toEqual(0);
     });
 
