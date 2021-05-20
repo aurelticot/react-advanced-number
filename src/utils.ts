@@ -91,7 +91,7 @@ const getNZeros = (nbZeros: number): string => {
 };
 
 /**
- * Compare the two string values and return the index from where there's a difference.
+ * Compare the two string values and return the index from where there's a difference. If the values don't have the same length, 0 is returned.
  *
  * @param value1 the numeric value to check, formatted as a string.
  * @param value2 the numeric value to check against, formatted as a string.
@@ -102,7 +102,7 @@ export const getComparisonDiffIndex = (
   value2: string
 ): number => {
   if (value1.length !== value2.length) {
-    return value2.length > value1.length ? value1.length : 0;
+    return 0;
   }
   const index = value1
     .split("")
