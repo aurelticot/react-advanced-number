@@ -1,6 +1,6 @@
 {
   "name": "react-advanced-number",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "React component formatting and displaying a number with advanced features such as highlighting the differences with the previous value, a privacy mode, etc.",
   "keywords": [
     "react",
